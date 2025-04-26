@@ -17,7 +17,7 @@ This was achieved by creating a simple graphic using the raylib-go binding as we
  - Building go programming and managing modules
 
 
-### `net` Package**
+### `net` Package
 
 #### Server
 
