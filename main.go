@@ -1,8 +1,7 @@
 package main
 
 import (
-	"math/rand/v2"
-	"strconv"
+	"os"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -17,7 +16,7 @@ func main() {
 
 	// establishing connection to server
 	connection, connected := establishConnection()
-	setUserName(strconv.Itoa(rand.Int()))
+	setUserName(os.Args[1])
 
 	for !connected && !rl.WindowShouldClose() {
 		rl.BeginDrawing()
@@ -55,6 +54,7 @@ func main() {
 			for UserId, playerPos := range playerPositions {
 				if UserId != userName {
 					rl.DrawRectangle(int32(playerPos.X), int32(playerPos.Y), 20, 20, rl.Green)
+					showPlayerName(rl.Vector2(playerPos), UserId, 0, -10)
 				}
 			}
 		}

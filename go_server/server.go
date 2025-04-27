@@ -24,6 +24,10 @@ var clients = make(map[string](Position))
 var mu sync.Mutex
 
 func handleConnection(conn net.Conn) {
+	var userId string
+	defer func() {
+		delete(clients, userId)
+	}()
 	defer conn.Close()
 
 	// conn.SetDeadline(time.Now().Add(15 * time.Second))
@@ -46,6 +50,7 @@ func handleConnection(conn net.Conn) {
 			fmt.Println("error decoding: ", err)
 			return
 		}
+		userId = cData.UserId
 
 		mu.Lock()
 		clients[cData.UserId] = cData.Position
