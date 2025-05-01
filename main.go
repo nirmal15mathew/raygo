@@ -15,7 +15,7 @@ func main() {
 	rl.SetTargetFPS(60)
 
 	// establishing connection to server
-	connection, connected := establishConnection()
+	connection, connected := establishConnectionUDP("127.0.0.1:8080")
 	setUserName(os.Args[1])
 
 	for !connected && !rl.WindowShouldClose() {
@@ -27,8 +27,8 @@ func main() {
 
 	for !rl.WindowShouldClose() {
 		// connection stuff
-		encodeAndSend(connection, currentPlayer.position.X, currentPlayer.position.Y)
-		playerPositions, status := receiveDataAndDecode(connection)
+		encodeAndSendUDP(connection, currentPlayer.position.X, currentPlayer.position.Y)
+		playerPositions, status := receiveDataAndDecodeUDP(connection)
 
 		// Handle Events
 		if rl.IsKeyDown(rl.KeyUp) {
